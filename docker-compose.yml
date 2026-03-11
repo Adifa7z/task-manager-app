@@ -1,10 +1,5 @@
-
-
 services:
 
-  # ============================================================
-  # SERVICE 1: PostgreSQL Database
-  # ============================================================
   db:
     image: postgres:15
     container_name: task_db
@@ -25,16 +20,11 @@ services:
       timeout: 5s
       retries: 5
 
-  # ============================================================
-  # SERVICE 2: FastAPI Backend
-  # ============================================================
   backend:
     build: ./backend
     container_name: task_backend
     environment:
       DATABASE_URL: postgresql://postgres:password@db:5432/taskdb
-    ports:
-      - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -43,14 +33,9 @@ services:
     volumes:
       - ./backend:/app
 
-  # ============================================================
-  # SERVICE 3: React Frontend
-  # ============================================================
   frontend:
     build: ./frontend
     container_name: task_frontend
-    ports:
-      - "5173:5173"
     depends_on:
       - backend
     networks:
@@ -58,15 +43,23 @@ services:
     volumes:
       - ./frontend/src:/app/src
 
-# ============================================================
-# VOLUMES — Persistent Storage
-# ============================================================
+  # NEW: Nginx service
+  nginx:
+    image: nginx:alpine
+    container_name: task_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - task-network
+
 volumes:
   postgres_data:
 
-# ============================================================
-# NETWORKS — How containers talk to each other
-# ============================================================
 networks:
   task-network:
     driver: bridge
