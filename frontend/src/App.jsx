@@ -3,8 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 // 👇 This points to our FastAPI backend
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost/api";
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
