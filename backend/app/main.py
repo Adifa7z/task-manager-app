@@ -15,12 +15,15 @@ app = FastAPI(title="Task Manager API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "http://localhost",
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://compassionate-light-production.up.railway.app",
-    "https://compassionate-light-production-8336.up.railway.app",
-],
+        "http://localhost",
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://compassionate-light-production.up.railway.app",
+        "https://compassionate-light-production-8336.up.railway.app",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- Pydantic Schemas (what data looks like coming IN) ---
