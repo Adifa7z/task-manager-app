@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
-// 👇 This points to our FastAPI backend
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = "https://task-manager-app-production-6417.up.railway.app";
 function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");

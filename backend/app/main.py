@@ -14,9 +14,13 @@ app = FastAPI(title="Task Manager API")
 # CORS — allows React (running on port 3000) to talk to this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:5173", "http://localhost:3000"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[
+    "http://localhost",
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://compassionate-light-production.up.railway.app",
+    "https://compassionate-light-production-8336.up.railway.app",
+],
 )
 
 # --- Pydantic Schemas (what data looks like coming IN) ---
